@@ -1,12 +1,14 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+var cors = require('cors')
 
 const tasksFilePath = path.join(__dirname, 'tasks.json');
 
 const app = express();
 const port = 3000;
 
+app.use(cors())
 app.use(express.json());
 
 
@@ -70,7 +72,7 @@ app.post('/tasks', (req, res) => {
 
 // get all tasks
 app.get('/tasks', (req, res) => {
-    res.send(taskList.tasks);
+    res.status(200).send(taskList.tasks);
 });
 
 // mark a task as done
