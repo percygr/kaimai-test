@@ -52,6 +52,8 @@ function App() {
     });
     const data = await response.json();
     setTodos([...todos, data]);
+
+    setInputTitle("");
   }
 
 

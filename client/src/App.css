@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.list-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 500px;
+  border: 1px solid #544186; 
+  padding: 10px; 
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  padding: 10px; 
+  border: 1px solid #544186; 
+}
+.input-container > input {
+  margin: 5px;
+  padding: 10px; 
+  height: 8px;  
+}
+.my-button {
+  margin: 5px;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+}
+.my-text {
+  margin: 5px;
+  font-size: 20px;
+  flex: 1; 
+}

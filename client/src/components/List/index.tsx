@@ -1,12 +1,26 @@
 function List(props: any) {
+    const taskStyle = {
+        textDecoration: props.isDone ? 'line-through' : 'none'
+    };
+
     return (
-        <div>
-          <button onClick={props.onClick} id="deleteBtn">Delete</button>
-          <button onClick={props.doneClick} id="doneBtn">
-            {props.isDone ? 'Undo Done' : 'Done'}
-          </button>
-    
-          {props.text}
+        <div className="container">
+            <div className="list-container">
+                <button 
+                    onClick={props.onClick} 
+                    id="deleteBtn"
+                    className="my-button"
+                >Delete</button>
+                <button 
+                    onClick={props.doneClick} 
+                    id="doneBtn"
+                    className="my-button"
+                >
+                {props.isDone ? 'Undo Done' : 'Done'}
+                </button>
+                <span style={taskStyle} className="my-text">{props.text}</span>
+            </div>
+
         </div>
       );
 }
