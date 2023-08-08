@@ -6,6 +6,7 @@ import List from './components/List';
 function App() {
   const [todos, setTodos] = useState<any[]>([]);
   const [inputTitle, setInputTitle] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const apiURL = "http://localhost:3000/tasks";
  
@@ -18,8 +19,10 @@ function App() {
         }
         const data = await response.json();
         setTodos(data);
+        setError(null); // Clear the error state if successful
       } catch (error) {
         console.error("Fetch error:", error);
+        setError("Network error. Is the server running on port 3000?"); // Set the error state to display to user
       }
     }
     fetchTodos();
@@ -76,15 +79,19 @@ function App() {
         />
       </div>
 
-      {todos.map((todo: any) => (
-        <List 
-          text={todo.title} 
-          key={todo.id} 
-          onClick={() => deleteItem(todo.id)}
-          doneClick={() => markDone(todo.id)}
-          isDone={todo.done}
-        />
-      ))}
+      {error ? (
+        <div className="error-message">{error}</div>
+      ) : (
+        todos.map((todo: any) => (
+          <List 
+            text={todo.title} 
+            key={todo.id} 
+            onClick={() => deleteItem(todo.id)}
+            doneClick={() => markDone(todo.id)}
+            isDone={todo.done}
+          />
+        ))
+      )}
 
 
     </div>
