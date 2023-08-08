@@ -67,6 +67,7 @@ app.put('/tasks/:id/done', (req, res) => {
     const task = taskList.tasks.find((task) => task.id === taskId);
     if (task) {
         task.done = true;
+        taskList.saveTasksToFile(); // Save updated tasks to the file
         res.send(task);
     } else {
         res.status(404).send('Task not found');
