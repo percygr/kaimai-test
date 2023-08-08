@@ -9,6 +9,7 @@ const port = 3000;
 
 app.use(express.json());
 
+
 class Task {
     id: number;
     title: string;
@@ -30,11 +31,14 @@ class TaskList {
     saveTasksToFile() {
         writeTasksToFile(this.tasks);
     }
+    getLastAddedTaskId(): number {
+        return this.tasks.reduce((maxId, task) => Math.max(maxId, task.id), 0);
+      }
 }
 function readTasksFromFile() {
     try {
-        const data = fs.readFileSync(tasksFilePath, 'utf8');
-        return JSON.parse(data);
+            const data = fs.readFileSync(tasksFilePath, 'utf8');
+            return JSON.parse(data);
         } catch (err) {
             return [];
         }
@@ -46,7 +50,7 @@ function writeTasksToFile(tasks: Task[]) {
 
 const taskList = new TaskList();
 let nextTaskId = 1;
-//we need to get the last id from the file so we can increment it for the next task
+//we need to get the last task id from the file so we can increment it for the next task
 try {
     const data = fs.readFileSync(tasksFilePath, 'utf8');
     const tasks: Task[] = JSON.parse(data);
@@ -89,18 +93,15 @@ app.delete('/tasks/:id', (req, res) => {
     if (taskIndex !== -1) {
         taskList.tasks.splice(taskIndex, 1);
         taskList.saveTasksToFile(); // Save updated tasks to the file
-        res.send('Task deleted');
+        res.status(204).send(`Task ${taskId} deleted`); // 204 No Content
     } else {
         res.status(404).send('Task not found');
     }
-});
-
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
 });
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 }
 );
+
+export { app, taskList }; 
