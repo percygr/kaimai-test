@@ -1,22 +1,22 @@
 import request from 'supertest';
 import { app, taskList } from '../../server/index'; 
-import { Server } from 'http';
+//import { Server } from 'http';
 
 describe('Task API', () => {
-    let server: Server; // To hold the Express server instance
+    //let server: Server; // To hold the Express server instance
     const lastAddedTaskId = taskList.getLastAddedTaskId();
 
-    beforeAll(() => {
-      // Start the Express server before tests
-      server = app.listen(3003);
-      //console.log('### test server started at http://localhost:3003')
-    });
+    // beforeAll(() => {
+    //   // Start the Express server before tests
+    //   server = app.listen(3003);
+    //   //console.log('### test server started at http://localhost:3003')
+    // });
   
-    afterAll((done) => {
-      // Close the server after tests
-      server.close(done);
-      //console.log('### test server closed')
-    });
+    // afterAll((done) => {
+    //   // Close the server after tests
+    //   server.close(done);
+    //   //console.log('### test server closed')
+    // });
 
   it(`should add task id ${lastAddedTaskId + 1}`, async () => {
     const response = await request(app)

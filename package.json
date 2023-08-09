@@ -13,7 +13,7 @@
     "express": "^4.18.2"
   },
   "scripts": {
-    "start-server": " ",
+    "start-server": "npx ts-node server/index.ts",
     "start-client": "cd client && npm start"
   }
 }
